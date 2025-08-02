@@ -51,9 +51,9 @@ export default function Cart() {
     }
   };
 
-  const subtotal = getTotalPrice();
-  const deliveryFee = getDeliveryFee();
-  const finalTotal = getFinalTotal() - discount;
+  const subtotal = totalPrice;
+  const deliveryFee = 0; // Free delivery
+  const finalTotal = totalPrice - discount;
 
   return (
     <div className="min-h-screen bg-coffee-50">
@@ -132,7 +132,7 @@ export default function Cart() {
                         </CardTitle>
                         <Button
                           variant="ghost"
-                          onClick={clearAllItems}
+                          onClick={clearCart}
                           className="text-red-500 hover:text-red-600 hover:bg-red-50"
                         >
                           <Trash2 className="w-4 h-4 mr-2" />
@@ -146,8 +146,8 @@ export default function Cart() {
                           <CartItem
                             key={item.id}
                             item={item}
-                            onUpdateQuantity={(quantity) => updateItemQuantity(item.id, quantity)}
-                            onRemove={() => removeItemFromCart(item.id)}
+                            onUpdateQuantity={(quantity) => updateItem(item.id, quantity)}
+                            onRemove={() => removeItem(item.id)}
                           />
                         ))}
                       </div>
