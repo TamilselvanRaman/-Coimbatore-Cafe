@@ -74,15 +74,15 @@ export function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <motion.a
-                  className={`transition-colors hover:text-amber-500 ${
+                <motion.span
+                  className={`cursor-pointer transition-colors hover:text-amber-500 ${
                     isScrolled ? "text-coffee-700" : "text-white"
                   } ${location === item.href ? "text-amber-500 font-semibold" : ""}`}
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
                   {item.label}
-                </motion.a>
+                </motion.span>
               </Link>
             ))}
           </div>
