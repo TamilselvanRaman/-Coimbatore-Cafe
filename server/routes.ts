@@ -289,6 +289,158 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Enhanced API routes for new features
+
+  // Social login endpoints (Google/Apple)
+  app.post("/api/auth/google", async (req, res) => {
+    try {
+      const { token, email, name, picture } = req.body;
+      
+      // In real implementation, verify Google token
+      let user = await storage.getUserByEmail(email);
+      
+      if (!user) {
+        user = await storage.createUser({
+          email,
+          fullName: name,
+          profileImageUrl: picture,
+        });
+      }
+
+      res.json({ user, message: "Google login successful" });
+    } catch (error) {
+      console.error("Google login error:", error);
+      res.status(500).json({ message: "Google login failed" });
+    }
+  });
+
+  app.post("/api/auth/apple", async (req, res) => {
+    try {
+      const { token, email, name } = req.body;
+      
+      // In real implementation, verify Apple token
+      let user = await storage.getUserByEmail(email);
+      
+      if (!user) {
+        user = await storage.createUser({
+          email,
+          fullName: name,
+        });
+      }
+
+      res.json({ user, message: "Apple login successful" });
+    } catch (error) {
+      console.error("Apple login error:", error);
+      res.status(500).json({ message: "Apple login failed" });
+    }
+  });
+
+  // Offer management routes
+  app.get("/api/offers", async (req, res) => {
+    try {
+      const offers = await storage.getActiveOffers();
+      res.json(offers);
+    } catch (error) {
+      console.error("Error fetching offers:", error);
+      res.status(500).json({ message: "Failed to fetch offers" });
+    }
+  });
+
+  app.get("/api/offers/membership/:tier", async (req, res) => {
+    try {
+      const { tier } = req.params;
+      const offers = await storage.getOffersByMembership(tier);
+      res.json(offers);
+    } catch (error) {
+      console.error("Error fetching membership offers:", error);
+      res.status(500).json({ message: "Failed to fetch membership offers" });
+    }
+  });
+
+  // Session tracking for user engagement
+  app.post("/api/sessions", async (req, res) => {
+    try {
+      const sessionData = {
+        userId: req.body.userId,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        startTime: new Date(),
+      };
+      
+      const session = await storage.createSession(sessionData);
+      res.json(session);
+    } catch (error) {
+      console.error("Error creating session:", error);
+      res.status(500).json({ message: "Failed to create session" });
+    }
+  });
+
+  app.patch("/api/sessions/:sessionId", async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const updates = req.body;
+      
+      const session = await storage.updateSession(sessionId, updates);
+      res.json(session);
+    } catch (error) {
+      console.error("Error updating session:", error);
+      res.status(500).json({ message: "Failed to update session" });
+    }
+  });
+
+  // Order tracking routes
+  app.get("/api/orders/:orderId/tracking", async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const trackingEvents = await storage.getOrderTracking(orderId);
+      res.json(trackingEvents);
+    } catch (error) {
+      console.error("Error fetching order tracking:", error);
+      res.status(500).json({ message: "Failed to fetch order tracking" });
+    }
+  });
+
+  app.post("/api/orders/:orderId/tracking", async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const event = req.body;
+      
+      const trackingEvent = await storage.addTrackingEvent(orderId, event);
+      res.json(trackingEvent);
+    } catch (error) {
+      console.error("Error adding tracking event:", error);
+      res.status(500).json({ message: "Failed to add tracking event" });
+    }
+  });
+
+  // Recent orders for tracking page
+  app.get("/api/orders/recent", async (req, res) => {
+    try {
+      // Mock recent orders for demo
+      const recentOrders = [
+        {
+          id: "order-1",
+          orderNumber: "CM2025080001",
+          totalAmount: "450",
+          status: "on_the_way",
+          createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+        },
+        {
+          id: "order-2", 
+          orderNumber: "CM2025080002",
+          totalAmount: "320",
+          status: "delivered",
+          createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+        }
+      ];
+      
+      res.json(recentOrders);
+    } catch (error) {
+      console.error("Error fetching recent orders:", error);
+      res.status(500).json({ message: "Failed to fetch recent orders" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

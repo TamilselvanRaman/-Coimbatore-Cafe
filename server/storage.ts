@@ -57,6 +57,20 @@ export interface IStorage {
   getWishlistItems(userId: string): Promise<Wishlist[]>;
   addToWishlist(wishlistItem: InsertWishlist): Promise<Wishlist>;
   removeFromWishlist(id: string): Promise<boolean>;
+
+  // Session tracking operations
+  createSession(sessionData: any): Promise<any>;
+  updateSession(sessionId: string, updates: any): Promise<any>;
+  getSessionsByIP(ipAddress: string): Promise<any[]>;
+
+  // Offer operations
+  getActiveOffers(): Promise<any[]>;
+  getOffersByMembership(tier: string): Promise<any[]>;
+  createOffer(offer: any): Promise<any>;
+
+  // Order tracking operations
+  addTrackingEvent(orderId: string, event: any): Promise<any>;
+  getOrderTracking(orderId: string): Promise<any[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -382,6 +396,102 @@ export class MemStorage implements IStorage {
 
   async removeFromWishlist(id: string): Promise<boolean> {
     return this.wishlistItems.delete(id);
+  }
+
+  // Session tracking operations (for engagement)
+  async createSession(sessionData: any): Promise<any> {
+    const id = randomUUID();
+    const session = { id, ...sessionData, startTime: new Date() };
+    // In real implementation, this would go to userSessions table
+    return session;
+  }
+
+  async updateSession(sessionId: string, updates: any): Promise<any> {
+    // Implementation for updating session data
+    return { sessionId, ...updates };
+  }
+
+  async getSessionsByIP(ipAddress: string): Promise<any[]> {
+    // Implementation for getting sessions by IP
+    return [];
+  }
+
+  // Offer operations
+  async getActiveOffers(): Promise<any[]> {
+    // Mock active offers for demonstration
+    return [
+      {
+        id: "1",
+        title: "New User Special",
+        description: "Get 25% off on your first order + free delivery",
+        discountValue: 25,
+        discountType: "percentage",
+        validUntil: "2025-08-31",
+        membershipRequired: null,
+        code: "WELCOME25"
+      },
+      {
+        id: "2",
+        title: "Golden Hour",
+        description: "30% off + priority delivery for Golden 7-Star members",
+        discountValue: 30,
+        discountType: "percentage",
+        validUntil: "2025-12-31",
+        membershipRequired: "golden7star",
+        code: "GOLDEN30"
+      }
+    ];
+  }
+
+  async getOffersByMembership(tier: string): Promise<any[]> {
+    const allOffers = await this.getActiveOffers();
+    return allOffers.filter(offer => !offer.membershipRequired || offer.membershipRequired === tier);
+  }
+
+  async createOffer(offer: any): Promise<any> {
+    const id = randomUUID();
+    return { id, ...offer, createdAt: new Date() };
+  }
+
+  // Order tracking operations
+  async addTrackingEvent(orderId: string, event: any): Promise<any> {
+    const id = randomUUID();
+    const trackingEvent = { 
+      id, 
+      orderId, 
+      ...event, 
+      timestamp: new Date() 
+    };
+    // In real implementation, this would go to orderTrackingEvents table
+    return trackingEvent;
+  }
+
+  async getOrderTracking(orderId: string): Promise<any[]> {
+    // Mock tracking events for demonstration
+    return [
+      {
+        id: "1",
+        orderId,
+        status: "pending",
+        message: "Order placed successfully",
+        timestamp: new Date(Date.now() - 30 * 60 * 1000) // 30 minutes ago
+      },
+      {
+        id: "2", 
+        orderId,
+        status: "confirmed",
+        message: "Order confirmed and being prepared",
+        timestamp: new Date(Date.now() - 20 * 60 * 1000) // 20 minutes ago
+      },
+      {
+        id: "3",
+        orderId,
+        status: "on_the_way",
+        message: "Order out for delivery",
+        location: { lat: 11.0168, lng: 76.9558, address: "Near RS Puram Signal" },
+        timestamp: new Date(Date.now() - 10 * 60 * 1000) // 10 minutes ago
+      }
+    ];
   }
 }
 

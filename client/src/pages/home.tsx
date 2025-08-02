@@ -12,6 +12,7 @@ import { AboutSection } from "@/components/about/about-section";
 import { ContactSection } from "@/components/contact/contact-section";
 import { CartSidebar } from "@/components/cart/cart-sidebar";
 import { ScrollReveal } from "@/components/animated/scroll-reveal";
+import { SessionTracker } from "@/components/engagement/session-tracker";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Coffee, Sparkles, Clock, CheckCircle } from "lucide-react";
 import { menuData, getMenuByCategory } from "@/data/menuData";
@@ -177,6 +178,7 @@ export default function Home() {
       
       {/* Cart Sidebar */}
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <SessionTracker />
     </div>
   );
 }

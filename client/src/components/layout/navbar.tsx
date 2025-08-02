@@ -5,6 +5,7 @@ import { ShoppingCart, User, Menu, X, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/use-auth";
+import { UserProfileDropdown } from "@/components/user/user-profile-dropdown";
 import { useCart } from "@/hooks/use-cart";
 
 export function Navbar() {
@@ -109,32 +110,9 @@ export function Navbar() {
               </motion.div>
             </Link>
 
-            {/* User Menu */}
+            {/* User Profile Dropdown */}
             {user ? (
-              <div className="hidden md:flex items-center space-x-2">
-                <Link href="/profile">
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    className={`transition-colors ${
-                      isScrolled ? "text-coffee-700 hover:text-amber-500" : "text-white hover:text-amber-200"
-                    }`}
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    Profile
-                  </Button>
-                </Link>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={logout}
-                  className={`transition-colors ${
-                    isScrolled ? "text-coffee-700 hover:text-amber-500" : "text-white hover:text-amber-200"
-                  }`}
-                >
-                  Logout
-                </Button>
-              </div>
+              <UserProfileDropdown />
             ) : (
               <Link href="/auth/login">
                 <Button 

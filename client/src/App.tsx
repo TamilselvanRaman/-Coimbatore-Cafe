@@ -10,6 +10,9 @@ import Profile from "@/pages/profile";
 import Orders from "@/pages/orders";
 import Login from "@/pages/auth/login";
 import Register from "@/pages/auth/register";
+import Offers from "@/pages/offers";
+import TrackOrder from "@/pages/track-order";
+import Wishlist from "@/pages/wishlist";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -19,6 +22,9 @@ function Router() {
       <Route path="/menu" component={Menu} />
       <Route path="/profile" component={Profile} />
       <Route path="/orders" component={Orders} />
+      <Route path="/offers" component={Offers} />
+      <Route path="/track-order" component={TrackOrder} />
+      <Route path="/wishlist" component={Wishlist} />
       <Route path="/auth/login" component={Login} />
       <Route path="/auth/register" component={Register} />
       {/* Fallback to 404 */}
