@@ -1,0 +1,385 @@
+Role:
+AI Code Generator, AI Advisor, and AI Agent Developer for Razerbills Research AI.
+
+Objective:
+To provide a comprehensive strategy, detailed workflow, and foundational code for building a premium, highly animated website for the "Coimbatore cafe". The website will feature a unique blend of local and classic menus, advanced online ordering, a custom drink builder, and robust backend functionality using Supabase and Razorpay.
+
+Context:
+The user requires a website for their Coimbatore-based cafe, owned by "Razerbills Groups of private ltd..". The core requirements include visually stunning animations inspired by the "Wegic" website, a dual menu system (standard and a game-like customizer), online ordering with delivery tracking, and user management. The specified technology stack includes React.js for the frontend, Node.js for potential server-side logic, and Supabase for the backend. Payment integration will be handled via Razorpay.
+
+Instructions:
+Instruction 1: Project Analysis and Strategic Recommendations
+Before diving into development, it's crucial to establish a solid strategy. Here is an analysis of your request and the recommended approach.
+
+1. Exactly Matched Approaches & Technologies
+Frontend Framework: React.js (with Vite). Vite provides an extremely fast development environment, perfect for a modern, responsive application.
+
+Styling: Tailwind CSS. It's a utility-first CSS framework that allows for rapid UI development and easy customization to achieve the desired premium look.
+
+Animations: Framer Motion and GSAP (GreenSock Animation Platform). These are the industry standards for creating complex, performant web animations. They are perfect for replicating the scroll-based interactive effects seen on websites like Wegic.
+
+Backend as a Service (BaaS): Supabase. This is an excellent choice. It provides a PostgreSQL database, authentication, instant APIs, edge functions, and storage, which covers all of your backend needs (user profiles, orders, products, IP logs) in a single platform.
+
+Payment Gateway: Razorpay. Perfect for the Indian market, with easy-to-integrate React libraries and robust documentation.
+
+3D/Game-like Customizer: React Three Fiber and Drei. These libraries allow you to write 3D scenes with Three.js directly within your React components, enabling the "build-your-own-cafe" game-like experience you described.
+
+2. Consolidated Menu Data
+Based on your input, I have consolidated the menu items into a single, clean data structure. This can be stored in your Supabase database or as a local JSON file.
+
+(File: src/data/menuData.js)
+
+JavaScript
+
+export const menuData = {
+  "Classic Coffees": [
+    { "id": "cc1", "name": "Espresso", "price": 90, "image": "/images/menu/espresso.jpg" },
+    { "id": "cc2", "name": "Americano", "price": 110, "image": "/images/menu/americano.jpg" },
+    { "id": "cc3", "name": "Cappuccino", "price": 130, "image": "/images/menu/cappuccino.jpg" },
+    { "id": "cc4", "name": "Latte", "price": 140, "image": "/images/menu/latte.jpg" },
+    { "id": "cc5", "name": "Mocha", "price": 150, "image": "/images/menu/mocha.jpg" },
+    { "id": "cc6", "name": "Cold Brew", "price": 160, "image": "/images/menu/cold-brew.jpg" }
+  ],
+  "Signature Local Coffees": [
+    { "id": "slc1", "name": "Kumbakonam Degree Coffee", "price": 80, "image": "/images/menu/degree-coffee.jpg" },
+    { "id": "slc2", "name": "Filter Kaapi", "price": 70, "image": "/images/menu/filter-kaapi.jpg" },
+    { "id": "slc3", "name": "Karupatti (Palm Jaggery) Coffee", "price": 90, "image": "/images/menu/karupatti-coffee.jpg" },
+    { "id": "slc4", "name": "Sukku Malli Coffee", "price": 75, "image": "/images/menu/sukku-malli.jpg" }
+  ],
+  "Teas": [
+    { "id": "t1", "name": "Masala Chai", "price": 60, "image": "/images/menu/masala-chai.jpg" },
+    { "id": "t2", "name": "Ginger Tea", "price": 60, "image": "/images/menu/ginger-tea.jpg" },
+    { "id": "t3", "name": "Cardamom (Elaichi) Tea", "price": 65, "image": "/images/menu/cardamom-tea.jpg" },
+    { "id": "t4", "name": "Sulaimani Tea", "price": 50, "image": "/images/menu/sulaimani.jpg" },
+    { "id": "t5", "name": "Iced Lemon Tea", "price": 80, "image": "/images/menu/iced-lemon-tea.jpg" }
+  ],
+  "Special Drinks": [
+    { "id": "sd1", "name": "Caramel Cloud Cold Brew", "price": 180, "image": "/images/menu/caramel-cold-brew.jpg" },
+    { "id": "sd2", "name": "Vanilla Sweet Cream Cold Brew", "price": 180, "image": "/images/menu/vanilla-cold-brew.jpg" },
+    { "id": "sd3", "name": "Nannari Sharbat", "price": 80, "image": "/images/menu/nannari-sharbat.jpg" },
+    { "id": "sd4", "name": "Rose Milk", "price": 75, "image": "/images/menu/rose-milk.jpg" },
+    { "id": "sd5", "name": "Badam Milk (Hot/Cold)", "price": 85, "image": "/images/menu/badam-milk.jpg" },
+    { "id": "sd6", "name": "Jigarthanda", "price": 90, "image": "/images/menu/jigarthanda.jpg" }
+  ],
+  "Snacks & Desserts": [
+    { "id": "sn1", "name": "Samosa", "price": 40, "image": "/images/menu/samosa.jpg" },
+    { "id": "sn2", "name": "Veg Sandwich", "price": 70, "image": "/images/menu/veg-sandwich.jpg" },
+    { "id": "sn3", "name": "Croissants", "price": 90, "image": "/images/menu/croissant.jpg" },
+    { "id": "sn4", "name": "Brownies", "price": 90, "image": "/images/menu/brownie.jpg" },
+    { "id": "sn5", "name": "Cheesecake", "price": 120, "image": "/images/menu/cheesecake.jpg" }
+  ]
+};
+Instruction 2: Detailed Workflow and Development Plan
+Here is a structured plan to build your website efficiently.
+
+Workflow:
+Phase 1: Foundation & Backend Setup (1 Week)
+
+Project Initialization:
+
+Set up a new React project using npm create vite@latest.
+
+Install necessary packages: tailwindcss, framer-motion, gsap, react-router-dom, @supabase/supabase-js, @razorpay/razorpay-js, react-three-fiber, drei.
+
+Supabase Project Setup:
+
+Create a new project on supabase.com.
+
+Database Schema: Create the following tables:
+
+profiles: To store user data (linked to Auth users).
+
+products: To store the menu items from the JSON above.
+
+orders: To store order details (user_id, total_amount, status, delivery_person_contact, etc.).
+
+order_items: To link products to specific orders.
+
+ip_visitors (See Note 1 for caution): Table to store IP addresses and visit timestamps.
+
+Authentication: Configure the email/password and social logins if desired.
+
+Storage: Create a bucket named product_images to store your menu item photos and another named logos.
+
+Phase 2: Frontend Development - UI/UX and Animations (2-3 Weeks)
+
+Component Scaffolding: Create reusable components for buttons, cards, headers, footers, etc.
+
+Homepage Development:
+
+Hero Section: Implement a full-screen, visually captivating animation on page load.
+
+About, Services, Contact Sections: Build these static pages with smooth scroll-in animations for elements.
+
+Wegic-Style Menu Page:
+
+Use GSAP's ScrollTrigger or Framer Motion's useScroll hook.
+
+As the user scrolls, trigger animations to showcase menu categories and items. For example, a horizontal carousel of drinks that moves based on vertical scroll.
+
+"Customize Your Cafe" Game:
+
+Design a dedicated page or a modal for this.
+
+Use React Three Fiber to render a 3D model of a cup.
+
+Create UI sliders and buttons for "Milk", "Sugar", "Powder Strength", and "Size (ml)".
+
+As the user adjusts the sliders, update the 3D model visually (e.g., the liquid color changes, the cup size animates).
+
+User Flow Pages:
+
+Design and build Login, Register, User Profile, My Orders, and Wishlist pages.
+
+Phase 3: Backend & Frontend Integration (1-2 Weeks)
+
+Supabase Client: Set up a singleton Supabase client in your React app to interact with the backend.
+
+Authentication Flow: Connect the Login/Register forms to Supabase Auth. Implement protected routes for authenticated users (e.g., Profile, Orders).
+
+Product Display: Fetch product data from your Supabase products table and display it on the menu page.
+
+Shopping Cart: Implement client-side state management (e.g., Zustand or Redux Toolkit) for the cart.
+
+IP Address Logging:
+
+Create a serverless Supabase Edge Function that captures the request's IP address.
+
+Call this function from a useEffect hook in your main App.js component to log the visitor's IP if they are not logged in. (Caution: Please read Note 1).
+
+Phase 4: Core Functionality - Ordering & Payments (1 Week)
+
+Order Placement Logic:
+
+When the user clicks "Place Order", a function sends the cart data and user ID to a Supabase Edge Function.
+
+This function creates a new entry in the orders table and corresponding entries in order_items.
+
+Razorpay Integration:
+
+The backend function then creates an order with the Razorpay API, returning an order_id.
+
+The frontend uses this order_id to open the Razorpay checkout modal.
+
+Use a webhook or a redirect page to handle the payment confirmation from Razorpay and update the order status in your Supabase DB to "Paid".
+
+Order Tracking Page:
+
+Create a "My Orders" page where a user can see their order history.
+
+For an active order, display its status (Preparing, Out for Delivery, Delivered).
+
+Show the delivery_person_contact field from the orders table once the status is "Out for Delivery".
+
+Instruction 3: Code Implementation and File Structure
+Here are foundational code snippets to get you started.
+
+File: src/lib/supabaseClient.js
+JavaScript
+
+// Initializes the Supabase client for use throughout the app.
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'YOUR_SUPABASE_URL'; // Found in your Supabase project settings
+const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY'; // Found in your Supabase project settings
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+File: src/components/menu/WegicStyleMenu.jsx
+JavaScript
+
+// A conceptual component for the scroll-animated menu using Framer Motion.
+import { menuData } from '../../data/menuData';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
+const MenuCategory = ({ category, products }) => {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'end start'],
+  });
+
+  // Example: Move items horizontally as the section is scrolled through vertically
+  const x = useTransform(scrollYProgress, [0, 1], ['-25%', '25%']);
+
+  return (
+    <section ref={targetRef} className="h-[200vh] relative">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
+        <h2 className="text-5xl font-bold text-white mb-12">{category}</h2>
+        <motion.div style={{ x }} className="flex gap-8">
+          {products.map((product) => (
+            <div key={product.id} className="w-64 text-center bg-black bg-opacity-50 p-4 rounded-lg">
+              <img src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md" />
+              <h3 className="text-white mt-4 text-xl">{product.name}</h3>
+              <p className="text-amber-400 font-bold text-lg">₹{product.price}</p>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+const WegicStyleMenu = () => {
+  return (
+    <div className="bg-gray-900">
+      {Object.entries(menuData).map(([category, products]) => (
+        <MenuCategory key={category} category={category} products={products} />
+      ))}
+    </div>
+  );
+};
+
+export default WegicStyleMenu;
+File: supabase/functions/create-razorpay-order/index.ts
+This is a Supabase Edge Function. You would need to set up Deno and the Supabase CLI.
+
+TypeScript
+
+// A serverless function to create a Razorpay order.
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import Razorpay from 'https://cdn.skypack.dev/razorpay';
+import { corsHeaders } from '../_shared/cors.ts'
+
+const razorpay = new Razorpay({
+  key_id: Deno.env.get('RAZORPAY_KEY_ID')!,
+  key_secret: Deno.env.get('RAZORPAY_KEY_SECRET')!,
+});
+
+serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const { amount, currency } = await req.json();
+
+    const options = {
+      amount: amount * 100, // Amount in paise
+      currency: currency || 'INR',
+      receipt: `receipt_order_${new Date().getTime()}`,
+    };
+
+    const order = await razorpay.orders.create(options);
+
+    return new Response(JSON.stringify(order), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 400,
+    });
+  }
+});
+File: src/components/payment/CheckoutButton.jsx
+JavaScript
+
+// A React component to trigger the payment flow.
+import { supabase } from '../../lib/supabaseClient';
+
+const CheckoutButton = ({ amount, cartItems }) => {
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePayment = async () => {
+    const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+    if (!res) {
+      alert('Razorpay SDK failed to load. Are you online?');
+      return;
+    }
+
+    // 1. Create a Razorpay Order from our serverless function
+    const { data: order, error } = await supabase.functions.invoke('create-razorpay-order', {
+      body: { amount },
+    });
+
+    if (error) {
+      console.error('Error creating razorpay order:', error);
+      return;
+    }
+
+    // 2. Open Razorpay Checkout
+    const options = {
+      key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your key
+      amount: order.amount,
+      currency: 'INR',
+      name: 'Coimbatore cafe',
+      description: 'Test Transaction',
+      image: '/path/to/your/logo.png', // Add your logo here
+      order_id: order.id,
+      handler: async (response) => {
+        // 3. Verify payment and create order in your DB
+        // You should do this verification on the backend for security
+        console.log('Payment successful:', response);
+        // Call another function to save the order to your Supabase DB
+      },
+      prefill: {
+        name: 'Dineshkumar V', // Prefill user details if available
+        email: 'maddydinesh5578@gmail.com',
+        contact: '7530080150',
+      },
+      notes: {
+        address: 'Coimbatore, Tamil Nadu',
+      },
+      theme: {
+        color: '#3399cc',
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
+  return (
+    <button onClick={handlePayment} className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg">
+      Proceed to Pay ₹{amount}
+    </button>
+  );
+};
+
+export default CheckoutButton;
+Notes:
+Note 1: Weakest Points in Plan & Improvements (CRITICAL)
+IP-Based Messaging: Your request to message users based on their IP address is the single biggest weakness.
+
+Privacy Violation: This is highly intrusive and can violate privacy laws like GDPR, even in India. Users will find it creepy and it will damage your brand's reputation.
+
+Technical Unreliability: IP addresses can be dynamic or shared (e.g., on a mobile network or public Wi-Fi). You cannot reliably link an IP to a single individual or send them a "message". There is no standard mechanism to "message an IP address".
+
+Alternative (Strongly Recommended): Instead of this, implement a subtle, one-time popup or banner for new visitors. Use browser localStorage to track if they've seen it. The banner can say: "Welcome to Coimbatore cafe! Sign up today and get 10% off your first order." This is a standard, ethical, and much more effective marketing practice.
+
+Live Location Tracking:
+
+Complexity: Real-time GPS tracking of a delivery person is a very advanced feature that typically requires a dedicated mobile app for the delivery agent which constantly sends location data to your server.
+
+Alternative (Realistic Approach): Implement a status-based tracking system. In your orders table, have a status column with values like Order Placed, In the Kitchen, Out for Delivery, Delivered. Update this status manually or through an admin dashboard. On the customer's order page, display this status clearly. This meets 90% of the customer's needs without the immense technical overhead of live tracking.
+
+Game-like Customizer Scope:
+
+Effort: Building a full 3D, game-like interface is a significant project in itself.
+
+Alternative (Phased Approach):
+
+Phase 1 (MVP): Start with a beautiful 2D interface. Use high-quality images and interactive sliders/buttons. This is much faster to build and still provides a great user experience.
+
+Phase 2 (Enhancement): Once the main business is running, you can invest in developing the react-three-fiber 3D version as a unique selling proposition.
+
+Note 2: Animation Performance
+Heavy animations, especially on scroll, can impact website performance and battery life on mobile devices.
+
+Optimization: Use CSS transforms (translate, scale, rotate) instead of animating properties like margin or top. Use will-change CSS property where appropriate. GSAP and Framer Motion are highly optimized for this, but it's important to test thoroughly on various devices.
+
+Note 3: Logo & Imagery
+Logo: You mentioned an attached document with the logo. As an AI, I cannot see attachments. Please ensure you upload the chosen logo (preferably in SVG format) to your project's assets.
+
+Product Photos: The success of a food website is heavily dependent on high-quality, appetizing photos. The image paths in the menuData.js file are placeholders. You must invest in professional photography for every item on your menu.
