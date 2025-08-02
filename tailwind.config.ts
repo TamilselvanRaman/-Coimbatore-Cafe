@@ -5,6 +5,18 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'Roboto', 'ui-sans-serif', 'system-ui'],
+        serif: ['Playfair Display', 'Georgia', 'ui-serif'],
+        luxury: ['Playfair Display', 'serif'],
+      },
+      fontWeight: {
+        'extra-light': '200',
+        'medium': '500',
+        'semi-bold': '600',
+        'extra-bold': '800',
+        'black': '900',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -44,6 +56,35 @@ export default {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
+        // Enhanced Coffee Theme Colors
+        coffee: {
+          50: "hsl(40, 45%, 99%)",
+          100: "hsl(39, 35%, 96%)",
+          200: "hsl(35, 30%, 90%)",
+          300: "hsl(32, 25%, 80%)",
+          400: "hsl(28, 20%, 65%)",
+          500: "hsl(25, 20%, 50%)",
+          600: "hsl(22, 25%, 40%)",
+          700: "hsl(20, 30%, 30%)",
+          800: "hsl(18, 35%, 20%)",
+          900: "hsl(16, 40%, 12%)",
+        },
+        // Enhanced Amber/Gold Colors
+        amber: {
+          300: "hsl(45, 95%, 65%)",
+          400: "hsl(42, 92%, 60%)",
+          500: "hsl(38, 95%, 55%)",
+          600: "hsl(35, 90%, 50%)",
+          700: "hsl(32, 85%, 45%)",
+        },
+        gold: {
+          400: "hsl(51, 95%, 65%)",
+          500: "hsl(48, 90%, 60%)",
+        },
+        cream: {
+          100: "hsl(47, 50%, 95%)",
+          200: "hsl(45, 40%, 92%)",
+        },
         chart: {
           "1": "var(--chart-1)",
           "2": "var(--chart-2)",

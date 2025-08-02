@@ -29,16 +29,16 @@ export function HeroSection() {
           <div className="text-white space-y-8">
             <ScrollReveal>
               <motion.h1 
-                className="font-luxury text-6xl lg:text-7xl font-bold leading-tight"
+                className="font-luxury text-6xl lg:text-7xl font-black leading-tight text-white drop-shadow-2xl"
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: "easeOut" }}
               >
-                Premium <span className="text-amber-400">Coffee</span><br/>
-                Experience
+                Premium <span className="text-premium bg-gradient-to-r from-amber-300 via-amber-400 to-gold-500 bg-clip-text text-transparent drop-shadow-lg">Coffee</span><br/>
+                <span className="text-cream-100">Experience</span>
               </motion.h1>
               <motion.p 
-                className="text-xl text-coffee-100 mt-6 leading-relaxed"
+                className="text-xl font-medium text-amber-100 mt-6 leading-relaxed drop-shadow-lg"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
@@ -50,14 +50,14 @@ export function HeroSection() {
             <ScrollReveal delay={0.2}>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/menu">
-                  <Button className="bg-gradient-to-r from-amber-500 to-amber-600 text-coffee-900 font-semibold text-lg px-8 py-4 rounded-full hover:from-amber-600 hover:to-amber-700 shadow-lg hover:shadow-amber-500/25 transition-all duration-300">
+                  <Button className="bg-gradient-to-r from-amber-400 to-amber-600 text-coffee-900 font-bold text-lg px-8 py-4 rounded-full hover:from-amber-500 hover:to-amber-700 shadow-2xl hover:shadow-amber-400/30 transition-all duration-300 border-2 border-amber-300/20">
                     <Coffee className="w-5 h-5 mr-2" />
                     Explore Menu
                   </Button>
                 </Link>
                 <Button 
                   variant="outline" 
-                  className="glass-morphism px-8 py-4 rounded-full text-white font-semibold text-lg border-white/30 hover:bg-white/20 transition-all"
+                  className="glass-morphism px-8 py-4 rounded-full text-white font-bold text-lg border-white/40 hover:bg-white/20 transition-all shadow-xl backdrop-blur-md"
                 >
                   <ShoppingBag className="w-5 h-5 mr-2" />
                   Order Online
@@ -75,8 +75,8 @@ export function HeroSection() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                   >
-                    <div className="text-3xl font-bold text-amber-400">{stat.number}</div>
-                    <div className="text-coffee-200">{stat.label}</div>
+                    <div className="text-3xl font-black text-amber-300 drop-shadow-lg">{stat.number}</div>
+                    <div className="text-amber-100 font-medium drop-shadow-md">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>

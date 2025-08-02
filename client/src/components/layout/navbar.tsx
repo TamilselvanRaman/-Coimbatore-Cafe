@@ -56,13 +56,13 @@ export function Navbar() {
                 <Coffee className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className={`font-luxury text-xl font-bold transition-colors ${
-                  isScrolled ? "text-coffee-800" : "text-white"
+                <h1 className={`font-luxury text-xl font-black transition-colors ${
+                  isScrolled ? "text-coffee-900" : "text-white drop-shadow-lg"
                 }`}>
                   Coimbatore Cafe
                 </h1>
-                <p className={`text-sm transition-colors ${
-                  isScrolled ? "text-coffee-600" : "text-coffee-100"
+                <p className={`text-sm font-medium transition-colors ${
+                  isScrolled ? "text-coffee-700" : "text-amber-200 drop-shadow-md"
                 }`}>
                   Premium Coffee Experience
                 </p>
@@ -75,9 +75,9 @@ export function Navbar() {
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 <motion.span
-                  className={`cursor-pointer transition-colors hover:text-amber-500 ${
-                    isScrolled ? "text-coffee-700" : "text-white"
-                  } ${location === item.href ? "text-amber-500 font-semibold" : ""}`}
+                  className={`cursor-pointer font-medium transition-all duration-300 hover:text-amber-400 hover:scale-105 ${
+                    isScrolled ? "text-coffee-800" : "text-white drop-shadow-lg"
+                  } ${location === item.href ? "text-amber-500 font-bold" : ""}`}
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >

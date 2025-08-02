@@ -1,3 +1,6 @@
+/* Import Google Fonts First */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,22 +27,30 @@
   --ring: hsl(25, 25%, 8%);
   --radius: 0.5rem;
 
-  /* Coffee Theme Colors */
-  --coffee-50: hsl(39, 39%, 98%);
-  --coffee-100: hsl(39, 20%, 94%);
-  --coffee-200: hsl(35, 20%, 85%);
-  --coffee-300: hsl(32, 18%, 75%);
-  --coffee-400: hsl(28, 16%, 62%);
-  --coffee-500: hsl(25, 15%, 45%);
-  --coffee-600: hsl(22, 18%, 35%);
-  --coffee-700: hsl(20, 20%, 25%);
-  --coffee-800: hsl(18, 25%, 15%);
-  --coffee-900: hsl(16, 30%, 8%);
+  /* Enhanced Coffee Theme Colors for Better Contrast */
+  --coffee-50: hsl(40, 45%, 99%);
+  --coffee-100: hsl(39, 35%, 96%);
+  --coffee-200: hsl(35, 30%, 90%);
+  --coffee-300: hsl(32, 25%, 80%);
+  --coffee-400: hsl(28, 20%, 65%);
+  --coffee-500: hsl(25, 20%, 50%);
+  --coffee-600: hsl(22, 25%, 40%);
+  --coffee-700: hsl(20, 30%, 30%);
+  --coffee-800: hsl(18, 35%, 20%);
+  --coffee-900: hsl(16, 40%, 12%);
 
-  /* Amber/Gold Colors */
-  --amber-400: hsl(38, 92%, 50%);
-  --amber-500: hsl(46, 100%, 56%);
-  --amber-600: hsl(43, 96%, 56%);
+  /* Enhanced Amber/Gold Colors */
+  --amber-300: hsl(45, 95%, 65%);
+  --amber-400: hsl(42, 92%, 60%);
+  --amber-500: hsl(38, 95%, 55%);
+  --amber-600: hsl(35, 90%, 50%);
+  --amber-700: hsl(32, 85%, 45%);
+
+  /* Additional Premium Colors */
+  --gold-400: hsl(51, 95%, 65%);
+  --gold-500: hsl(48, 90%, 60%);
+  --cream-100: hsl(47, 50%, 95%);
+  --cream-200: hsl(45, 40%, 92%);
 }
 
 .dark {
@@ -72,6 +83,72 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  /* Enhanced Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: hsl(18, 35%, 20%);
+  }
+
+  h1 { 
+    font-size: 2.5rem; 
+    font-weight: 700;
+    color: hsl(16, 40%, 12%);
+  }
+  
+  h2 { 
+    font-size: 2rem; 
+    font-weight: 600;
+    color: hsl(18, 35%, 20%);
+  }
+  
+  h3 { 
+    font-size: 1.5rem; 
+    font-weight: 600;
+    color: hsl(20, 30%, 30%);
+  }
+
+  p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: hsl(22, 25%, 40%);
+  }
+
+  /* Button and Interactive Text */
+  button, .btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  /* Enhanced readability for light text on dark backgrounds */
+  .text-white {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+  }
+
+  /* Premium text styles */
+  .font-luxury {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .text-premium {
+    background: linear-gradient(135deg, hsl(38, 95%, 55%), hsl(35, 90%, 50%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
   }
 }
 
@@ -203,5 +280,4 @@
   background: hsl(43, 96%, 56%);
 }
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+/* Enhanced Google Fonts for better readability */
