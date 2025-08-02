@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(39, 39%, 98%);
+  --foreground: hsl(25, 25%, 8%);
+  --muted: hsl(39, 20%, 94%);
+  --muted-foreground: hsl(25, 15%, 45%);
+  --popover: hsl(39, 39%, 98%);
+  --popover-foreground: hsl(25, 25%, 8%);
+  --card: hsl(39, 39%, 98%);
+  --card-foreground: hsl(25, 25%, 8%);
+  --border: hsl(35, 20%, 85%);
+  --input: hsl(35, 20%, 85%);
+  --primary: hsl(46, 100%, 56%);
+  --primary-foreground: hsl(25, 25%, 8%);
+  --secondary: hsl(39, 20%, 94%);
+  --secondary-foreground: hsl(25, 15%, 12%);
+  --accent: hsl(39, 20%, 94%);
+  --accent-foreground: hsl(25, 15%, 12%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(60, 9%, 98%);
+  --ring: hsl(25, 25%, 8%);
+  --radius: 0.5rem;
+
+  /* Coffee Theme Colors */
+  --coffee-50: hsl(39, 39%, 98%);
+  --coffee-100: hsl(39, 20%, 94%);
+  --coffee-200: hsl(35, 20%, 85%);
+  --coffee-300: hsl(32, 18%, 75%);
+  --coffee-400: hsl(28, 16%, 62%);
+  --coffee-500: hsl(25, 15%, 45%);
+  --coffee-600: hsl(22, 18%, 35%);
+  --coffee-700: hsl(20, 20%, 25%);
+  --coffee-800: hsl(18, 25%, 15%);
+  --coffee-900: hsl(16, 30%, 8%);
+
+  /* Amber/Gold Colors */
+  --amber-400: hsl(38, 92%, 50%);
+  --amber-500: hsl(46, 100%, 56%);
+  --amber-600: hsl(43, 96%, 56%);
+}
+
+.dark {
+  --background: hsl(16, 30%, 8%);
+  --foreground: hsl(39, 39%, 98%);
+  --muted: hsl(18, 25%, 15%);
+  --muted-foreground: hsl(25, 15%, 65%);
+  --popover: hsl(16, 30%, 8%);
+  --popover-foreground: hsl(39, 39%, 98%);
+  --card: hsl(16, 30%, 8%);
+  --card-foreground: hsl(39, 39%, 98%);
+  --border: hsl(18, 25%, 15%);
+  --input: hsl(18, 25%, 15%);
+  --primary: hsl(46, 100%, 56%);
+  --primary-foreground: hsl(25, 25%, 8%);
+  --secondary: hsl(18, 25%, 15%);
+  --secondary-foreground: hsl(39, 39%, 98%);
+  --accent: hsl(18, 25%, 15%);
+  --accent-foreground: hsl(39, 39%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(39, 39%, 98%);
+  --ring: hsl(39, 20%, 84%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(18, 25%, 15%) 0%, hsl(22, 18%, 35%) 50%, hsl(28, 16%, 62%) 100%);
+  }
+
+  .font-luxury {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  /* Coffee Steam Animation */
+  .coffee-steam {
+    animation: steam 3s ease-in-out infinite;
+  }
+
+  @keyframes steam {
+    0%, 100% { 
+      transform: translateY(0) scale(1); 
+      opacity: 0.7; 
+    }
+    50% { 
+      transform: translateY(-10px) scale(1.1); 
+      opacity: 1; 
+    }
+  }
+
+  /* Floating Animation */
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Scroll Reveal Animation */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Premium Button Effect */
+  .premium-button {
+    background: linear-gradient(45deg, hsl(46, 100%, 56%), hsl(38, 92%, 50%));
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .premium-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+  }
+
+  /* Menu Card Hover */
+  .menu-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .menu-card:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+
+  /* Cart Badge Animation */
+  .cart-badge {
+    animation: pulse 2s infinite;
+  }
+
+  /* Loading Dots Animation */
+  .loading-dots {
+    animation: loading 1.4s infinite ease-in-out both;
+  }
+
+  .loading-dots:nth-child(1) { animation-delay: -0.32s; }
+  .loading-dots:nth-child(2) { animation-delay: -0.16s; }
+
+  @keyframes loading {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+  }
+
+  /* Line Clamp Utilities */
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(39, 20%, 94%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(46, 100%, 56%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(43, 96%, 56%);
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
