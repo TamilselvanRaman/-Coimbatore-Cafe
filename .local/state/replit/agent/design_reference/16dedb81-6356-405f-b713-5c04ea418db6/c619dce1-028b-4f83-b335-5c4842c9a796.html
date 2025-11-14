@@ -1,0 +1,1161 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coimbatore Cafe - Premium Coffee Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50: '#FDF8F4',
+                            100: '#F5F5DC',
+                            200: '#DEB887',
+                            300: '#D2691E',
+                            400: '#CD853F',
+                            500: '#8B4513',
+                            600: '#654321',
+                            700: '#4A2C17',
+                            800: '#2F1B14',
+                            900: '#1A0F0A'
+                        },
+                        gold: {
+                            400: '#FFA500',
+                            500: '#FFD700',
+                            600: '#B8860B'
+                        }
+                    },
+                    fontFamily: {
+                        'primary': ['Inter', 'sans-serif'],
+                        'luxury': ['Playfair Display', 'serif']
+                    },
+                    backdropBlur: {
+                        xs: '2px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #2F1B14 0%, #8B4513 50%, #D2691E 100%);
+        }
+        
+        .coffee-steam {
+            animation: steam 3s ease-in-out infinite;
+        }
+        
+        @keyframes steam {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+            50% { transform: translateY(-10px) scale(1.1); opacity: 1; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .premium-button {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .premium-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .menu-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .cart-badge {
+            animation: pulse 2s infinite;
+        }
+
+        .loading-dots {
+            animation: loading 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes loading {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="font-primary bg-coffee-50 text-coffee-900">
+    <!-- @COMPONENT: Navigation [sticky header with glass morphism] -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-morphism">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-coffee-500 to-coffee-700 flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">C</span>
+                    </div>
+                    <div>
+                        <h1 class="font-luxury text-xl font-bold text-coffee-800">Coimbatore Cafe</h1>
+                        <p class="text-sm text-coffee-600">Premium Coffee Experience</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-coffee-700 hover:text-coffee-500 transition-colors">Home</a>
+                    <a href="#menu" class="text-coffee-700 hover:text-coffee-500 transition-colors">Menu</a>
+                    <a href="#customize" class="text-coffee-700 hover:text-coffee-500 transition-colors">Customize</a>
+                    <a href="#about" class="text-coffee-700 hover:text-coffee-500 transition-colors">About</a>
+                    <a href="#contact" class="text-coffee-700 hover:text-coffee-500 transition-colors">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- @STATE: cartCount:number = 0 -->
+                    <button class="relative p-2 text-coffee-700 hover:text-coffee-500 transition-colors" data-event="click:toggleCart">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-gold-500 rounded-full flex items-center justify-center text-xs font-bold text-coffee-900 cart-badge" data-bind="cartCount">3</span>
+                    </button>
+                    <button class="premium-button px-6 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:login">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: Hero Section [animated background with floating elements] -->
+    <section id="home" class="min-h-screen hero-gradient relative overflow-hidden flex items-center">
+        <!-- Floating coffee beans animation -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="floating absolute top-20 left-10 w-4 h-4 bg-coffee-300 rounded-full opacity-60"></div>
+            <div class="floating absolute top-40 right-20 w-6 h-6 bg-coffee-200 rounded-full opacity-40" style="animation-delay: -2s;"></div>
+            <div class="floating absolute bottom-32 left-1/4 w-3 h-3 bg-gold-400 rounded-full opacity-50" style="animation-delay: -4s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white space-y-8">
+                    <div class="scroll-reveal">
+                        <h1 class="font-luxury text-6xl lg:text-7xl font-bold leading-tight">
+                            Premium <span class="text-gold-400">Coffee</span><br>
+                            Experience
+                        </h1>
+                        <p class="text-xl text-coffee-100 mt-6 leading-relaxed">
+                            Discover the finest blend of traditional South Indian coffee culture with modern premium brewing techniques at Coimbatore's most exclusive cafe.
+                        </p>
+                    </div>
+                    
+                    <div class="scroll-reveal flex flex-col sm:flex-row gap-4" style="transition-delay: 0.2s;">
+                        <button class="premium-button px-8 py-4 rounded-full text-coffee-900 font-semibold text-lg" data-event="click:exploreMenu">
+                            <i class="fas fa-coffee mr-2"></i>
+                            Explore Menu
+                        </button>
+                        <button class="glass-morphism px-8 py-4 rounded-full text-white font-semibold text-lg border-white/30 hover:bg-white/20 transition-all" data-event="click:orderOnline">
+                            <i class="fas fa-shopping-bag mr-2"></i>
+                            Order Online
+                        </button>
+                    </div>
+                    
+                    <div class="scroll-reveal flex items-center space-x-8 pt-8" style="transition-delay: 0.4s;">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-gold-400">150+</div>
+                            <div class="text-coffee-200">Premium Blends</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-gold-400">4.9</div>
+                            <div class="text-coffee-200">Rating</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-gold-400">24/7</div>
+                            <div class="text-coffee-200">Delivery</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- Premium cafe interior -->
+                    <div class="scroll-reveal relative" style="transition-delay: 0.6s;">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" alt="Premium cafe interior with modern lighting and comfortable seating" class="rounded-2xl shadow-2xl w-full h-auto" />
+                        
+                        <!-- Steam animation overlay -->
+                        <div class="absolute top-1/4 left-1/2 transform -translate-x-1/2">
+                            <div class="coffee-steam w-2 h-8 bg-white/30 rounded-full"></div>
+                            <div class="coffee-steam w-2 h-6 bg-white/20 rounded-full ml-3 -mt-6" style="animation-delay: 0.5s;"></div>
+                            <div class="coffee-steam w-2 h-4 bg-white/10 rounded-full ml-1 -mt-4" style="animation-delay: 1s;"></div>
+                        </div>
+                        
+                        <!-- Floating review card -->
+                        <div class="absolute -bottom-6 -left-6 glass-morphism p-4 rounded-xl text-white max-w-xs floating">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="flex text-gold-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-sm">5.0</span>
+                            </div>
+                            <p class="text-sm">"Best coffee experience in Coimbatore! The ambiance is perfect."</p>
+                            <div class="text-xs text-coffee-200 mt-2">- Priya Sharma</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Hero Section -->
+
+    <!-- @COMPONENT: Features Section [scroll-triggered cards] -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-luxury text-4xl lg:text-5xl font-bold text-coffee-800 mb-6">
+                    Why Choose Our <span class="text-gold-500">Premium</span> Experience?
+                </h2>
+                <p class="text-xl text-coffee-600 max-w-3xl mx-auto">
+                    From traditional filter kaapi to modern brewing techniques, we bring you the perfect blend of heritage and innovation.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- @MAP: features.map(feature => ( -->
+                <div class="scroll-reveal glass-morphism p-8 rounded-2xl border border-coffee-100 menu-card" style="transition-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-gradient-to-r from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-seedling text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-luxury text-2xl font-bold text-coffee-800 mb-4">Premium Beans</h3>
+                    <p class="text-coffee-600 leading-relaxed">
+                        Sourced directly from the finest coffee estates in South India, our beans are carefully selected and roasted to perfection.
+                    </p>
+                </div>
+                
+                <div class="scroll-reveal glass-morphism p-8 rounded-2xl border border-coffee-100 menu-card" style="transition-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-gradient-to-r from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-magic text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-luxury text-2xl font-bold text-coffee-800 mb-4">Custom Brewing</h3>
+                    <p class="text-coffee-600 leading-relaxed">
+                        Experience our signature 3D drink customizer where you can create your perfect cup with personalized strength, size, and flavor profiles.
+                    </p>
+                </div>
+                
+                <div class="scroll-reveal glass-morphism p-8 rounded-2xl border border-coffee-100 menu-card" style="transition-delay: 0.3s;">
+                    <div class="w-16 h-16 bg-gradient-to-r from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shipping-fast text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-luxury text-2xl font-bold text-coffee-800 mb-4">Fast Delivery</h3>
+                    <p class="text-coffee-600 leading-relaxed">
+                        Enjoy fresh, hot coffee delivered to your doorstep with real-time tracking and our premium delivery experience.
+                    </p>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Features Section -->
+
+    <!-- @COMPONENT: Premium Menu Section [horizontal scroll animation] -->
+    <section id="menu" class="py-20 bg-gradient-to-br from-coffee-50 to-coffee-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-luxury text-4xl lg:text-5xl font-bold text-coffee-800 mb-6">
+                    Our <span class="text-gold-500">Signature</span> Menu
+                </h2>
+                <p class="text-xl text-coffee-600 max-w-3xl mx-auto">
+                    Discover our carefully crafted selection of premium coffees, traditional drinks, and artisanal snacks.
+                </p>
+            </div>
+            
+            <!-- Menu Categories Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="px-6 py-3 bg-coffee-500 text-white rounded-full font-semibold active-tab" data-category="classic">
+                    Classic Coffees
+                </button>
+                <button class="px-6 py-3 bg-coffee-200 text-coffee-800 rounded-full font-semibold hover:bg-coffee-300 transition-colors" data-category="local">
+                    Local Specials
+                </button>
+                <button class="px-6 py-3 bg-coffee-200 text-coffee-800 rounded-full font-semibold hover:bg-coffee-300 transition-colors" data-category="teas">
+                    Premium Teas
+                </button>
+                <button class="px-6 py-3 bg-coffee-200 text-coffee-800 rounded-full font-semibold hover:bg-coffee-300 transition-colors" data-category="special">
+                    Special Drinks
+                </button>
+            </div>
+            
+            <!-- Classic Coffees -->
+            <div class="menu-category active" id="classic-menu">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- @MAP: classicCoffees.map(item => ( -->
+                    <div class="scroll-reveal menu-card bg-white rounded-2xl overflow-hidden shadow-lg" style="transition-delay: 0.1s;">
+                        <!-- Coffee brewing process -->
+                        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Espresso shot being pulled with perfect crema formation" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-2" data-bind="item.name">Espresso</h3>
+                            <p class="text-coffee-600 mb-4">Rich, bold shot of coffee with perfect crema</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-gold-500" data-bind="item.price">₹90</span>
+                                <button class="premium-button px-4 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:addToCart" data-item-id="cc1">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scroll-reveal menu-card bg-white rounded-2xl overflow-hidden shadow-lg" style="transition-delay: 0.2s;">
+                        <!-- Coffee brewing process -->
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Cappuccino with beautifully steamed milk foam and latte art" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-2">Cappuccino</h3>
+                            <p class="text-coffee-600 mb-4">Perfect balance of espresso, steamed milk, and foam</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-gold-500">₹130</span>
+                                <button class="premium-button px-4 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:addToCart" data-item-id="cc3">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scroll-reveal menu-card bg-white rounded-2xl overflow-hidden shadow-lg" style="transition-delay: 0.3s;">
+                        <!-- Coffee brewing process -->
+                        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Cold brew coffee being poured over ice with a smooth, rich texture" class="w-full h-48 object-cover" />
+                        <div class="p-6">
+                            <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-2">Cold Brew</h3>
+                            <p class="text-coffee-600 mb-4">Smooth, refreshing coffee brewed over 12 hours</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-gold-500">₹160</span>
+                                <button class="premium-button px-4 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:addToCart" data-item-id="cc6">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+            
+            <!-- Local Specials -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <div class="scroll-reveal menu-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <!-- Local Indian coffee varieties -->
+                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Traditional South Indian filter coffee served in stainless steel tumbler and dabarah" class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-2">Filter Kaapi</h3>
+                        <p class="text-coffee-600 mb-4">Traditional South Indian filter coffee with chicory</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-gold-500">₹70</span>
+                            <button class="premium-button px-4 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:addToCart">
+                                <i class="fas fa-plus mr-1"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal menu-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <!-- Local Indian coffee varieties -->
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Karupatti coffee with palm jaggery creating a rich, dark brew" class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-2">Karupatti Coffee</h3>
+                        <p class="text-coffee-600 mb-4">Premium coffee sweetened with pure palm jaggery</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-gold-500">₹90</span>
+                            <button class="premium-button px-4 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:addToCart">
+                                <i class="fas fa-plus mr-1"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal menu-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                    <!-- Local Indian coffee varieties -->
+                    <img src="https://pixabay.com/get/gb1e3f53991c454a5cf2bab96e36f20b883c37e8419dbe52ef8f414fbf19d5c4e1baeee840f1232b92239bbf71b65208e5e58812ce5c6204ab5790ead75dcf70d_1280.jpg" alt="Traditional Kumbakonam degree coffee with rich aroma and traditional brewing method" class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-2">Kumbakonam Degree</h3>
+                        <p class="text-coffee-600 mb-4">Authentic degree coffee from Kumbakonam region</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-gold-500">₹80</span>
+                            <button class="premium-button px-4 py-2 rounded-full text-coffee-900 font-semibold" data-event="click:addToCart">
+                                <i class="fas fa-plus mr-1"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="premium-button px-8 py-4 rounded-full text-coffee-900 font-semibold text-lg" data-event="click:viewFullMenu">
+                    View Full Menu
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Premium Menu Section -->
+
+    <!-- @COMPONENT: 3D Drink Customizer [custom builder experience] -->
+    <section id="customize" class="py-20 bg-coffee-800 relative overflow-hidden">
+        <!-- @FUNCTIONALITY: This customizer should implement 3D drink visualization using React Three Fiber -->
+        <div class="absolute inset-0 bg-gradient-to-br from-coffee-700 to-coffee-900"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-luxury text-4xl lg:text-5xl font-bold text-white mb-6">
+                    Build Your <span class="text-gold-400">Perfect</span> Cup
+                </h2>
+                <p class="text-xl text-coffee-200 max-w-3xl mx-auto">
+                    Experience our revolutionary 3D drink customizer. Adjust every aspect of your coffee to create your ideal beverage.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- 3D Visualization Area -->
+                <div class="scroll-reveal">
+                    <div class="glass-morphism rounded-3xl p-8 h-96 flex items-center justify-center relative">
+                        <!-- Placeholder for 3D coffee cup -->
+                        <div class="w-64 h-64 relative">
+                            <!-- Modern restaurant ambiance -->
+                            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400" alt="Premium coffee cup in modern restaurant setting with ambient lighting" class="w-full h-full object-cover rounded-2xl" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-coffee-900/50 to-transparent rounded-2xl"></div>
+                            
+                            <!-- Coffee customization preview -->
+                            <div class="absolute bottom-4 left-4 right-4 glass-morphism p-3 rounded-xl">
+                                <div class="text-white text-sm">
+                                    <div class="flex justify-between mb-1">
+                                        <span>Size:</span>
+                                        <span data-bind="customization.size">Large (350ml)</span>
+                                    </div>
+                                    <div class="flex justify-between mb-1">
+                                        <span>Strength:</span>
+                                        <span data-bind="customization.strength">Medium</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Price:</span>
+                                        <span class="text-gold-400 font-bold" data-bind="customization.price">₹145</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customization Controls -->
+                <div class="scroll-reveal space-y-8" style="transition-delay: 0.2s;">
+                    <!-- @STATE: customization = { size: 'large', strength: 'medium', milk: 'whole', extras: [] } -->
+                    
+                    <!-- Size Selection -->
+                    <div class="glass-morphism p-6 rounded-2xl">
+                        <h3 class="text-white font-luxury text-xl mb-4">
+                            <i class="fas fa-expand-arrows-alt text-gold-400 mr-2"></i>
+                            Size Selection
+                        </h3>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button class="p-3 rounded-xl bg-coffee-600 text-white hover:bg-gold-500 transition-colors" data-size="small">
+                                <div class="text-sm font-semibold">Small</div>
+                                <div class="text-xs">250ml</div>
+                            </button>
+                            <button class="p-3 rounded-xl bg-gold-500 text-coffee-900 font-semibold" data-size="medium">
+                                <div class="text-sm font-semibold">Medium</div>
+                                <div class="text-xs">300ml</div>
+                            </button>
+                            <button class="p-3 rounded-xl bg-coffee-600 text-white hover:bg-gold-500 transition-colors" data-size="large">
+                                <div class="text-sm font-semibold">Large</div>
+                                <div class="text-xs">350ml</div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Strength Control -->
+                    <div class="glass-morphism p-6 rounded-2xl">
+                        <h3 class="text-white font-luxury text-xl mb-4">
+                            <i class="fas fa-sliders-h text-gold-400 mr-2"></i>
+                            Coffee Strength
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-white">
+                                <span>Mild</span>
+                                <span>Strong</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="3" class="w-full h-2 bg-coffee-600 rounded-lg appearance-none slider" data-control="strength">
+                            <div class="flex justify-center">
+                                <span class="text-gold-400 font-semibold" data-bind="strengthLevel">Medium</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Milk Options -->
+                    <div class="glass-morphism p-6 rounded-2xl">
+                        <h3 class="text-white font-luxury text-xl mb-4">
+                            <i class="fas fa-tint text-gold-400 mr-2"></i>
+                            Milk Type
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="p-3 rounded-xl bg-gold-500 text-coffee-900 font-semibold" data-milk="whole">
+                                Whole Milk
+                            </button>
+                            <button class="p-3 rounded-xl bg-coffee-600 text-white hover:bg-gold-500 transition-colors" data-milk="oat">
+                                Oat Milk
+                            </button>
+                            <button class="p-3 rounded-xl bg-coffee-600 text-white hover:bg-gold-500 transition-colors" data-milk="almond">
+                                Almond Milk
+                            </button>
+                            <button class="p-3 rounded-xl bg-coffee-600 text-white hover:bg-gold-500 transition-colors" data-milk="coconut">
+                                Coconut Milk
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Add to Cart -->
+                    <button class="w-full premium-button px-8 py-4 rounded-full text-coffee-900 font-bold text-lg" data-event="click:addCustomDrink">
+                        <i class="fas fa-plus mr-2"></i>
+                        Add Custom Drink - <span data-bind="customization.totalPrice">₹145</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: 3D Drink Customizer -->
+
+    <!-- @COMPONENT: Order Process [step-by-step flow] -->
+    <section class="py-20 bg-gradient-to-br from-coffee-100 to-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-luxury text-4xl lg:text-5xl font-bold text-coffee-800 mb-6">
+                    Simple <span class="text-gold-500">Ordering</span> Process
+                </h2>
+                <p class="text-xl text-coffee-600 max-w-3xl mx-auto">
+                    From selection to delivery, enjoy a seamless experience with real-time tracking and premium service.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- @MAP: orderSteps.map((step, index) => ( -->
+                <div class="scroll-reveal text-center" style="transition-delay: ${index * 0.1}s;">
+                    <div class="w-24 h-24 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">
+                        1
+                    </div>
+                    <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-3">Choose Your Drink</h3>
+                    <p class="text-coffee-600">Browse our premium menu or create a custom blend with our 3D customizer.</p>
+                </div>
+                
+                <div class="scroll-reveal text-center" style="transition-delay: 0.1s;">
+                    <div class="w-24 h-24 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">
+                        2
+                    </div>
+                    <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-3">Secure Payment</h3>
+                    <p class="text-coffee-600">Pay safely using Razorpay with multiple payment options including UPI.</p>
+                </div>
+                
+                <div class="scroll-reveal text-center" style="transition-delay: 0.2s;">
+                    <div class="w-24 h-24 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">
+                        3
+                    </div>
+                    <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-3">Track Your Order</h3>
+                    <p class="text-coffee-600">Real-time updates from preparation to delivery with live tracking.</p>
+                </div>
+                
+                <div class="scroll-reveal text-center" style="transition-delay: 0.3s;">
+                    <div class="w-24 h-24 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 shadow-lg">
+                        4
+                    </div>
+                    <h3 class="font-luxury text-xl font-bold text-coffee-800 mb-3">Enjoy Fresh Coffee</h3>
+                    <p class="text-coffee-600">Receive your perfectly crafted coffee delivered fresh to your doorstep.</p>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Order Process -->
+
+    <!-- @COMPONENT: Payment Integration [Razorpay showcase] -->
+    <section class="py-20 bg-coffee-800">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal text-white">
+                    <h2 class="font-luxury text-4xl lg:text-5xl font-bold mb-6">
+                        Secure <span class="text-gold-400">Payments</span>
+                    </h2>
+                    <p class="text-xl text-coffee-200 mb-8 leading-relaxed">
+                        Pay with confidence using our integrated Razorpay payment system. Multiple payment options for your convenience.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-gold-400"></i>
+                            <span>UPI Payments (PhonePe, GooglePay, Paytm)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-gold-400"></i>
+                            <span>Credit & Debit Cards</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-gold-400"></i>
+                            <span>Net Banking</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-gold-400"></i>
+                            <span>Digital Wallets</span>
+                        </div>
+                    </div>
+                    
+                    <button class="premium-button px-8 py-4 rounded-full text-coffee-900 font-semibold text-lg" data-event="click:startOrder">
+                        Start Your Order
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="scroll-reveal" style="transition-delay: 0.2s;">
+                    <!-- UPI QR Code Display -->
+                    <div class="glass-morphism p-8 rounded-3xl text-center">
+                        <h3 class="text-white font-luxury text-2xl mb-6">Quick Pay with UPI</h3>
+                        
+                        <!-- QR Code Section -->
+                        <div class="bg-white p-6 rounded-2xl mb-6 inline-block">
+                            <div class="w-48 h-48 bg-black mx-auto rounded-lg flex items-center justify-center">
+                                <!-- QR Code placeholder - in production this would be the actual QR -->
+                                <div class="grid grid-cols-8 gap-1">
+                                    <!-- QR code pattern simulation -->
+                                    <div class="w-2 h-2 bg-black"></div>
+                                    <div class="w-2 h-2 bg-white"></div>
+                                    <div class="w-2 h-2 bg-black"></div>
+                                    <div class="w-2 h-2 bg-black"></div>
+                                    <div class="w-2 h-2 bg-white"></div>
+                                    <div class="w-2 h-2 bg-black"></div>
+                                    <div class="w-2 h-2 bg-black"></div>
+                                    <div class="w-2 h-2 bg-black"></div>
+                                    <!-- Additional rows for QR pattern -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-white">
+                            <p class="mb-2">UPI ID: <span class="text-gold-400 font-mono">maddydinesh5578@okicici</span></p>
+                            <p class="text-sm text-coffee-200">Scan to pay with any UPI app</p>
+                        </div>
+                        
+                        <div class="flex justify-center space-x-4 mt-6">
+                            <div class="text-center">
+                                <i class="fab fa-google-pay text-2xl text-blue-500"></i>
+                                <div class="text-xs text-coffee-200 mt-1">Google Pay</div>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-mobile-alt text-2xl text-purple-500"></i>
+                                <div class="text-xs text-coffee-200 mt-1">PhonePe</div>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-wallet text-2xl text-blue-600"></i>
+                                <div class="text-xs text-coffee-200 mt-1">Paytm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Payment Integration -->
+
+    <!-- @COMPONENT: About Section [company story] -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <h2 class="font-luxury text-4xl lg:text-5xl font-bold text-coffee-800 mb-6">
+                        Our <span class="text-gold-500">Story</span>
+                    </h2>
+                    <p class="text-xl text-coffee-600 mb-6 leading-relaxed">
+                        Founded by Razerbills Groups Private Ltd, Coimbatore Cafe represents the perfect fusion of traditional South Indian coffee culture with modern brewing innovation.
+                    </p>
+                    <p class="text-coffee-600 mb-8 leading-relaxed">
+                        From our humble beginnings to becoming Coimbatore's premier coffee destination, we've maintained our commitment to quality, authenticity, and exceptional customer experience. Every cup tells a story of passion, heritage, and craftsmanship.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="text-center p-4 bg-coffee-50 rounded-xl">
+                            <div class="text-3xl font-bold text-coffee-800">2018</div>
+                            <div class="text-coffee-600">Established</div>
+                        </div>
+                        <div class="text-center p-4 bg-coffee-50 rounded-xl">
+                            <div class="text-3xl font-bold text-coffee-800">50K+</div>
+                            <div class="text-coffee-600">Happy Customers</div>
+                        </div>
+                    </div>
+                    
+                    <button class="premium-button px-8 py-4 rounded-full text-coffee-900 font-semibold text-lg" data-event="click:learnMore">
+                        Learn More About Us
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="scroll-reveal space-y-6" style="transition-delay: 0.2s;">
+                    <!-- Modern restaurant ambiance -->
+                    <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Modern restaurant interior with warm lighting and contemporary design" class="rounded-2xl shadow-lg w-full h-auto" />
+                    
+                    <!-- Modern restaurant ambiance -->
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Elegant restaurant dining area with sophisticated ambiance and modern furnishing" class="rounded-2xl shadow-lg w-full h-auto" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: About Section -->
+
+    <!-- @COMPONENT: Contact Section [location and contact info] -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-coffee-100 to-coffee-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-luxury text-4xl lg:text-5xl font-bold text-coffee-800 mb-6">
+                    Visit Our <span class="text-gold-500">Cafe</span>
+                </h2>
+                <p class="text-xl text-coffee-600 max-w-3xl mx-auto">
+                    Experience the perfect blend of ambiance, aroma, and taste at our premium Coimbatore location.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="scroll-reveal">
+                    <div class="glass-morphism p-8 rounded-3xl bg-white/50">
+                        <h3 class="font-luxury text-2xl font-bold text-coffee-800 mb-6">Get in Touch</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-coffee-800">Location</h4>
+                                    <p class="text-coffee-600">123 Coffee Street, Coimbatore<br>Tamil Nadu 641001</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-phone text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-coffee-800">Phone</h4>
+                                    <p class="text-coffee-600">+91 98765 43210</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-coffee-800">Email</h4>
+                                    <p class="text-coffee-600">hello@coimbatorecafe.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-coffee-800">Hours</h4>
+                                    <p class="text-coffee-600">Mon-Sun: 7:00 AM - 11:00 PM<br>24/7 Online Delivery</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-8 border-t border-coffee-200">
+                            <h4 class="font-luxury text-xl font-bold text-coffee-800 mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-coffee-500 rounded-full flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-coffee-500 rounded-full flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-coffee-500 rounded-full flex items-center justify-center text-white hover:bg-gold-500 transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal" style="transition-delay: 0.2s;">
+                    <!-- Map placeholder -->
+                    <div class="glass-morphism p-8 rounded-3xl bg-white/50 h-full">
+                        <div class="bg-coffee-200 rounded-2xl h-full min-h-[400px] flex items-center justify-center">
+                            <div class="text-center text-coffee-600">
+                                <i class="fas fa-map-marked-alt text-6xl mb-4"></i>
+                                <p class="text-lg">Interactive Map</p>
+                                <p class="text-sm">Premium location in the heart of Coimbatore</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Contact Section -->
+
+    <!-- @COMPONENT: Footer [company info and links] -->
+    <footer class="bg-coffee-900 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-coffee-500 to-coffee-700 flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">C</span>
+                        </div>
+                        <div>
+                            <h3 class="font-luxury text-xl font-bold">Coimbatore Cafe</h3>
+                            <p class="text-coffee-300 text-sm">Premium Coffee Experience</p>
+                        </div>
+                    </div>
+                    <p class="text-coffee-300 leading-relaxed">
+                        Crafting exceptional coffee experiences with traditional South Indian flavors and modern innovation.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-coffee-300">
+                        <li><a href="#menu" class="hover:text-gold-400 transition-colors">Menu</a></li>
+                        <li><a href="#customize" class="hover:text-gold-400 transition-colors">Customize</a></li>
+                        <li><a href="#about" class="hover:text-gold-400 transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-gold-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Services</h4>
+                    <ul class="space-y-2 text-coffee-300">
+                        <li><a href="#" class="hover:text-gold-400 transition-colors">Online Ordering</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition-colors">Delivery Tracking</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition-colors">Custom Drinks</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition-colors">Catering</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                    <div class="space-y-3 text-coffee-300">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-phone text-gold-400"></i>
+                            <span>+91 98765 43210</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-gold-400"></i>
+                            <span>hello@coimbatorecafe.com</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt text-gold-400"></i>
+                            <span>Coimbatore, Tamil Nadu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-coffee-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-coffee-300 mb-4 md:mb-0">
+                    © 2024 Razerbills Groups Private Ltd. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-coffee-300">
+                    <a href="#" class="hover:text-gold-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-gold-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-gold-400 transition-colors">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- @COMPONENT: Shopping Cart Sidebar [sliding cart] -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <!-- @STATE: isCartOpen:boolean = false -->
+        <div class="p-6 border-b border-coffee-200">
+            <div class="flex items-center justify-between">
+                <h3 class="font-luxury text-2xl font-bold text-coffee-800">Your Order</h3>
+                <button class="p-2 hover:bg-coffee-100 rounded-lg transition-colors" data-event="click:closeCart">
+                    <i class="fas fa-times text-coffee-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-6">
+            <!-- @MAP: cartItems.map(item => ( -->
+            <div class="flex items-center space-x-4 p-4 border border-coffee-100 rounded-xl mb-4">
+                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&h=100" alt="Espresso coffee cup" class="w-16 h-16 object-cover rounded-lg" />
+                <div class="flex-1">
+                    <h4 class="font-semibold text-coffee-800" data-bind="item.name">Espresso</h4>
+                    <p class="text-coffee-600 text-sm" data-bind="item.customization">Large, Medium strength</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="font-bold text-gold-500" data-bind="item.price">₹90</span>
+                        <div class="flex items-center space-x-2">
+                            <button class="w-8 h-8 bg-coffee-100 rounded-full flex items-center justify-center" data-event="click:decreaseQuantity">
+                                <i class="fas fa-minus text-xs"></i>
+                            </button>
+                            <span data-bind="item.quantity">2</span>
+                            <button class="w-8 h-8 bg-coffee-500 text-white rounded-full flex items-center justify-center" data-event="click:increaseQuantity">
+                                <i class="fas fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_MAP )) -->
+        </div>
+        
+        <div class="border-t border-coffee-200 p-6">
+            <div class="space-y-3 mb-6">
+                <div class="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span data-bind="cart.subtotal">₹270</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Delivery:</span>
+                    <span data-bind="cart.delivery">₹30</span>
+                </div>
+                <div class="flex justify-between font-bold text-lg border-t pt-3">
+                    <span>Total:</span>
+                    <span class="text-gold-500" data-bind="cart.total">₹300</span>
+                </div>
+            </div>
+            
+            <button class="w-full premium-button px-6 py-4 rounded-full text-coffee-900 font-bold text-lg" data-event="click:proceedToCheckout">
+                <i class="fas fa-credit-card mr-2"></i>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Shopping Cart Sidebar -->
+
+    <!-- @COMPONENT: Loading Overlay [payment processing] -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="glass-morphism p-8 rounded-2xl text-center">
+            <div class="flex justify-center space-x-2 mb-4">
+                <div class="w-3 h-3 bg-gold-400 rounded-full loading-dots"></div>
+                <div class="w-3 h-3 bg-gold-400 rounded-full loading-dots"></div>
+                <div class="w-3 h-3 bg-gold-400 rounded-full loading-dots"></div>
+            </div>
+            <p class="text-white font-semibold">Processing your order...</p>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Loading Overlay -->
+
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        
+        (function() {
+            // Scroll reveal animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Menu category switching
+            document.querySelectorAll('[data-category]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update active button
+                    document.querySelectorAll('[data-category]').forEach(btn => {
+                        btn.classList.remove('bg-coffee-500', 'text-white', 'active-tab');
+                        btn.classList.add('bg-coffee-200', 'text-coffee-800');
+                    });
+                    
+                    this.classList.remove('bg-coffee-200', 'text-coffee-800');
+                    this.classList.add('bg-coffee-500', 'text-white', 'active-tab');
+                    
+                    // TODO: Switch menu display based on category
+                    console.log('Switching to category:', category);
+                });
+            });
+            
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Cart functionality placeholders
+            let cartCount = 0;
+            
+            function updateCartCount() {
+                const badge = document.querySelector('.cart-badge');
+                if (badge) {
+                    badge.textContent = cartCount;
+                }
+            }
+            
+            // Add to cart buttons
+            document.querySelectorAll('[data-event="click:addToCart"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    cartCount++;
+                    updateCartCount();
+                    
+                    // TODO: Add item to cart state
+                    console.log('Added item to cart:', this.dataset.itemId);
+                    
+                    // Visual feedback
+                    this.innerHTML = '<i class="fas fa-check mr-1"></i>Added!';
+                    this.classList.add('bg-green-500');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-plus mr-1"></i>Add';
+                        this.classList.remove('bg-green-500');
+                    }, 1000);
+                });
+            });
+            
+            // Cart sidebar toggle
+            function toggleCart() {
+                const sidebar = document.getElementById('cart-sidebar');
+                const isOpen = !sidebar.classList.contains('translate-x-full');
+                
+                if (isOpen) {
+                    sidebar.classList.add('translate-x-full');
+                } else {
+                    sidebar.classList.remove('translate-x-full');
+                }
+            }
+            
+            document.querySelector('[data-event="click:toggleCart"]')?.addEventListener('click', toggleCart);
+            document.querySelector('[data-event="click:closeCart"]')?.addEventListener('click', toggleCart);
+            
+            // 3D Customizer controls
+            document.querySelectorAll('[data-size]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active state from all size buttons
+                    document.querySelectorAll('[data-size]').forEach(btn => {
+                        btn.classList.remove('bg-gold-500', 'text-coffee-900');
+                        btn.classList.add('bg-coffee-600', 'text-white');
+                    });
+                    
+                    // Add active state to clicked button
+                    this.classList.remove('bg-coffee-600', 'text-white');
+                    this.classList.add('bg-gold-500', 'text-coffee-900');
+                    
+                    // TODO: Update 3D model based on size
+                    console.log('Size selected:', this.dataset.size);
+                });
+            });
+            
+            document.querySelectorAll('[data-milk]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active state from all milk buttons
+                    document.querySelectorAll('[data-milk]').forEach(btn => {
+                        btn.classList.remove('bg-gold-500', 'text-coffee-900');
+                        btn.classList.add('bg-coffee-600', 'text-white');
+                    });
+                    
+                    // Add active state to clicked button
+                    this.classList.remove('bg-coffee-600', 'text-white');
+                    this.classList.add('bg-gold-500', 'text-coffee-900');
+                    
+                    // TODO: Update 3D model based on milk type
+                    console.log('Milk type selected:', this.dataset.milk);
+                });
+            });
+            
+            // Strength slider
+            document.querySelector('[data-control="strength"]')?.addEventListener('input', function() {
+                const strength = parseInt(this.value);
+                const strengthLabel = document.querySelector('[data-bind="strengthLevel"]');
+                
+                const levels = ['Very Mild', 'Mild', 'Medium', 'Strong', 'Very Strong'];
+                if (strengthLabel) {
+                    strengthLabel.textContent = levels[strength - 1];
+                }
+                
+                // TODO: Update 3D model based on strength
+                console.log('Strength level:', strength);
+            });
+            
+            // Payment button handlers
+            document.querySelector('[data-event="click:proceedToCheckout"]')?.addEventListener('click', function() {
+                // Show loading overlay
+                document.getElementById('loading-overlay').classList.remove('hidden');
+                
+                // TODO: Integrate with Razorpay payment gateway
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').classList.add('hidden');
+                    alert('Payment integration coming soon!');
+                }, 2000);
+            });
+            
+            // Initialize animations on load
+            setTimeout(() => {
+                document.querySelectorAll('.scroll-reveal').forEach((el, index) => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        setTimeout(() => {
+                            el.classList.add('revealed');
+                        }, index * 100);
+                    }
+                });
+            }, 100);
+        })();
+    </script>
+</body>
+</html>
